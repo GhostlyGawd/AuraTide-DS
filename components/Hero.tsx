@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Star, Truck, ShieldCheck, ChevronRight, Check, Flame } from 'lucide-react';
-import { PDP_GALLERY, IMAGES } from '../constants';
+import { Star, Truck, ShieldCheck, Flame, AlertTriangle } from 'lucide-react';
+import { PDP_GALLERY } from '../constants';
 
 interface HeroProps {
   onCtaClick: () => void;
@@ -8,7 +8,7 @@ interface HeroProps {
 
 const Hero: React.FC<HeroProps> = ({ onCtaClick }) => {
   const [activeImage, setActiveImage] = useState(0);
-  const [selectedBundle, setSelectedBundle] = useState<'solo' | 'sanctuary'>('solo');
+  const [selectedOption, setSelectedOption] = useState<1 | 2 | 3>(2);
   const [viewerCount, setViewerCount] = useState(14);
   
   // Use the ordered gallery from constants
@@ -19,11 +19,20 @@ const Hero: React.FC<HeroProps> = ({ onCtaClick }) => {
     const interval = setInterval(() => {
       setViewerCount(prev => {
         const change = Math.floor(Math.random() * 3) - 1; // -1, 0, or 1
-        return Math.max(8, Math.min(24, prev + change));
+        return Math.max(8, Math.min(42, prev + change));
       });
     }, 4000);
     return () => clearInterval(interval);
   }, []);
+
+  const getPrice = () => {
+      switch(selectedOption) {
+          case 1: return { current: '$39.95', original: '$79.95' };
+          case 2: return { current: '$69.95', original: '$139.95' };
+          case 3: return { current: '$99.95', original: '$199.95' };
+      }
+  };
+  const price = getPrice();
 
   return (
     <section id="product" className="pt-4 pb-12 md:py-12 bg-white">
@@ -73,9 +82,9 @@ const Hero: React.FC<HeroProps> = ({ onCtaClick }) => {
                     AuraTide™ Crystal Projector
                  </h1>
                  <div className="flex items-center gap-3">
-                     <span className="text-2xl font-bold text-primary">{selectedBundle === 'solo' ? '$39.95' : '$69.95'}</span>
-                     <span className="text-lg text-secondary line-through">{selectedBundle === 'solo' ? '$79.95' : '$139.95'}</span>
-                     <span className="bg-primary text-white text-xs font-bold px-2 py-1 rounded">50% OFF</span>
+                     <span className="text-3xl font-bold text-primary">{price.current}</span>
+                     <span className="text-lg text-secondary line-through">{price.original}</span>
+                     <span className="bg-[#FF4D00] text-white text-xs font-bold px-2 py-1 rounded">50% OFF</span>
                  </div>
              </div>
 
@@ -85,77 +94,86 @@ const Hero: React.FC<HeroProps> = ({ onCtaClick }) => {
                 <span>{viewerCount} people are viewing this offer</span>
              </div>
 
-             <p className="text-secondary leading-relaxed mb-8 border-b border-border-gray pb-8">
+             <p className="text-secondary leading-relaxed mb-6 border-b border-border-gray pb-6">
                  Transform your space instantly. The AuraTide™ uses a precision-cut crystal lens to project a rotating, organic water-ripple effect. Select from 16 colors to match your mood.
              </p>
 
-             {/* VISUAL BUNDLE SELECTOR */}
-             <div className="mb-8">
-                 <span className="text-sm font-bold text-primary block mb-3 uppercase tracking-wider">Select Your Vibe</span>
-                 <div className="grid grid-cols-2 gap-4">
-                     
-                     {/* Option 1: Solo Vibe */}
-                     <div 
-                        onClick={() => setSelectedBundle('solo')}
-                        className={`relative cursor-pointer rounded-xl overflow-hidden transition-all duration-200 flex flex-col aspect-[3/4] ${
-                            selectedBundle === 'solo' 
-                            ? 'border-2 border-black bg-white ring-1 ring-black/5 shadow-xl scale-[1.02]' 
-                            : 'border border-gray-200 bg-white hover:border-gray-300'
-                        }`}
-                     >
-                         <div className="h-[55%] w-full bg-gray-50 p-4 flex items-center justify-center">
-                            <img src={IMAGES.hero} alt="Solo Lamp" className="max-w-full max-h-full object-contain mix-blend-multiply" />
-                         </div>
-                         <div className="flex-1 p-3 flex flex-col items-center justify-center text-center">
-                            <span className="font-bold text-primary text-sm">Solo Vibe</span>
-                            <span className="text-xs text-secondary mt-1">1 Lamp</span>
-                            <span className="font-bold text-primary mt-auto pt-2">$39.95</span>
-                         </div>
-                     </div>
+             {/* INSTANT UPGRADE TOGGLE (Stack & Save) */}
+             <div className="flex flex-col gap-3 mb-6">
+                 
+                 {/* Option 1 */}
+                 <div 
+                    onClick={() => setSelectedOption(1)}
+                    className={`relative flex items-center justify-between p-4 rounded-xl border-2 cursor-pointer transition-all duration-200 ${selectedOption === 1 ? 'border-black bg-gray-50' : 'border-gray-200 hover:border-gray-300'}`}
+                 >
+                    <div className="flex items-center gap-3">
+                        <div className={`w-5 h-5 rounded-full border flex items-center justify-center ${selectedOption === 1 ? 'border-black' : 'border-gray-300'}`}>
+                            {selectedOption === 1 && <div className="w-2.5 h-2.5 bg-black rounded-full" />}
+                        </div>
+                        <div>
+                            <span className="font-bold text-primary block text-sm md:text-base">1x AuraTide</span>
+                            <span className="text-xs text-gray-500 font-medium">Standard Price</span>
+                        </div>
+                    </div>
+                    <span className="font-bold text-primary text-lg">$39.95</span>
+                 </div>
 
-                     {/* Option 2: Sanctuary Bundle */}
-                     <div 
-                        onClick={() => setSelectedBundle('sanctuary')}
-                        className={`relative cursor-pointer rounded-xl transition-all duration-200 aspect-[3/4] group ${
-                            selectedBundle === 'sanctuary' 
-                            ? 'border-2 border-black bg-[#F5F5F7] shadow-xl scale-[1.02]' 
-                            : 'p-[2px] bg-gradient-to-r from-brand-cyan to-brand-purple hover:shadow-glow hover:scale-[1.01]'
-                        }`}
-                     >
-                         <div className={`w-full h-full rounded-[10px] overflow-hidden flex flex-col relative ${selectedBundle === 'sanctuary' ? '' : 'bg-[#F5F5F7]'}`}>
-                             {/* Badge */}
-                             <div className="absolute top-3 left-1/2 -translate-x-1/2 bg-black text-white text-[10px] font-bold px-3 py-1 rounded-full z-10 whitespace-nowrap shadow-sm">
-                                BEST VALUE
-                             </div>
+                 {/* Option 2 (Hero - Pre-selected) */}
+                 <div 
+                    onClick={() => setSelectedOption(2)}
+                    className={`relative flex flex-col p-4 rounded-xl border-2 cursor-pointer transition-all duration-200 ${selectedOption === 2 ? 'border-yellow-400 bg-yellow-50/20 shadow-lg ring-1 ring-yellow-400' : 'border-gray-200 hover:border-gray-300'}`}
+                 >
+                    <div className="flex items-center justify-between w-full mb-1">
+                        <div className="flex items-center gap-3">
+                            <div className={`w-5 h-5 rounded-full border flex items-center justify-center ${selectedOption === 2 ? 'border-black' : 'border-gray-300'}`}>
+                                {selectedOption === 2 && <div className="w-2.5 h-2.5 bg-black rounded-full" />}
+                            </div>
+                            <span className="font-bold text-primary text-sm md:text-base">2x AuraTide <span className="text-xs font-normal text-secondary hidden sm:inline">(Sanctuary Bundle)</span></span>
+                        </div>
+                        <div className="flex flex-col items-end">
+                            <div className="flex items-center gap-2">
+                                <span className="font-bold text-primary text-lg">$69.95</span>
+                                <span className="bg-red-600 text-white text-[10px] font-black px-1.5 py-0.5 rounded uppercase tracking-wide">SAVE $10</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="flex items-center gap-1.5 text-xs font-bold text-gray-700 mt-1 pl-8">
+                         <Flame size={12} className="text-orange-500 fill-orange-500" />
+                         Most Popular - 84% of customers choose this.
+                    </div>
+                 </div>
 
-                             <div className="h-[55%] w-full bg-gray-100/50 p-4 flex items-center justify-center">
-                                <img src={IMAGES.offer} alt="Sanctuary Bundle" className="max-w-full max-h-full object-cover rounded-md" />
-                             </div>
-                             
-                             <div className="flex-1 p-3 flex flex-col items-center justify-center text-center">
-                                <span className="font-bold text-primary text-sm">Sanctuary Bundle</span>
-                                <span className="text-xs text-secondary mt-1">2 Lamps + Remote</span>
-                                <span className="font-bold text-primary mt-auto pt-2">$69.95</span>
-                             </div>
-                         </div>
-                     </div>
-
+                 {/* Option 3 */}
+                 <div 
+                    onClick={() => setSelectedOption(3)}
+                    className={`relative flex items-center justify-between p-4 rounded-xl border-2 cursor-pointer transition-all duration-200 ${selectedOption === 3 ? 'border-black bg-gray-50' : 'border-gray-200 hover:border-gray-300'}`}
+                 >
+                    <div className="flex items-center gap-3">
+                        <div className={`w-5 h-5 rounded-full border flex items-center justify-center ${selectedOption === 3 ? 'border-black' : 'border-gray-300'}`}>
+                            {selectedOption === 3 && <div className="w-2.5 h-2.5 bg-black rounded-full" />}
+                        </div>
+                        <div>
+                            <span className="font-bold text-primary block text-sm md:text-base">3x AuraTide <span className="text-xs font-normal text-secondary hidden sm:inline">(Gift Pack)</span></span>
+                            <span className="text-[10px] font-bold text-brand-purple uppercase">Save $20 + Free Priority Shipping</span>
+                        </div>
+                    </div>
+                    <span className="font-bold text-primary text-lg">$99.95</span>
                  </div>
              </div>
 
              {/* MAIN CTA */}
              <button 
                 onClick={onCtaClick}
-                className="w-full bg-primary text-white font-black text-lg py-5 rounded-full hover:scale-[1.02] transition-transform shadow-lg mb-4 flex items-center justify-center gap-2 relative overflow-hidden group"
+                className="w-full bg-[#FF4D00] text-white font-black text-xl py-5 rounded-full shadow-lg hover:bg-[#E64500] hover:scale-[1.01] transition-all flex items-center justify-center gap-2 relative overflow-hidden group animate-pulse-slow mb-3"
              >
-                {/* Pulse Effect */}
-                <div className="absolute inset-0 rounded-full border-2 border-white/20 animate-ping opacity-20"></div>
-                
-                <span className="relative z-10 uppercase tracking-wide">
-                    {selectedBundle === 'solo' ? 'ADD TO CART - $39.95' : 'ADD TO CART - $69.95 (Save $20)'}
-                </span>
-                <ChevronRight size={20} className="relative z-10 group-hover:translate-x-1 transition-transform" />
+                <span className="relative z-10 uppercase tracking-wide">GET MINE NOW - 50% OFF</span>
              </button>
+
+             {/* Scarcity */}
+             <div className="flex items-center justify-center gap-2 text-red-600 font-bold text-sm mb-6">
+                <AlertTriangle size={16} fill="currentColor" className="text-red-600" />
+                <span>Warning: Low Stock. Selling fast.</span>
+             </div>
 
              {/* Trust Badges */}
              <div className="flex items-center justify-center gap-6 text-xs font-medium text-secondary">
