@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { IMAGES } from '../constants';
 
 interface StickyFooterProps {
   onCtaClick: () => void;
@@ -9,8 +10,8 @@ const StickyFooter: React.FC<StickyFooterProps> = ({ onCtaClick }) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Show after scrolling past the main hero area (approx 600px)
-      if (window.scrollY > 600) {
+      // Show after scrolling past the main hero area
+      if (window.scrollY > 800) {
         setIsVisible(true);
       } else {
         setIsVisible(false);
@@ -21,31 +22,31 @@ const StickyFooter: React.FC<StickyFooterProps> = ({ onCtaClick }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  if (!isVisible) return null;
+  // Only render if visible (slide up effect can be added via CSS classes)
+  const containerClasses = isVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0';
 
   return (
-    <div className="fixed bottom-0 md:top-0 md:bottom-auto left-0 right-0 bg-white/95 backdrop-blur-xl border-t md:border-b border-border-gray p-4 z-50 shadow-soft transition-transform duration-300">
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
-        <div className="hidden md:flex flex-col">
-           <span className="font-bold text-primary text-sm">AuraTide™ Crystal Projector</span>
-           <div className="flex items-center gap-2 text-xs">
-               <span className="text-green-600 font-medium">In Stock</span>
-               <span className="text-secondary">Free Shipping</span>
-           </div>
-        </div>
+    <div className={`fixed bottom-0 left-0 right-0 bg-white border-t border-border-gray p-3 z-50 shadow-[0_-4px_20px_rgba(0,0,0,0.1)] transition-all duration-300 md:hidden ${containerClasses}`}>
+      <div className="flex items-center justify-between gap-3">
         
-        <div className="flex items-center gap-4 w-full md:w-auto">
-             <div className="flex flex-col md:hidden">
-                <span className="font-bold text-primary text-sm">AuraTide™</span>
-                <span className="text-xs text-secondary">$39.95</span>
-             </div>
-             <button 
-                onClick={onCtaClick}
-                className="ml-auto bg-primary text-white font-bold px-6 py-3 rounded-full text-sm hover:bg-black/80 transition-colors w-auto md:w-48"
-            >
-                Add to Cart
-            </button>
+        {/* Thumb & Price */}
+        <div className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-lg overflow-hidden border border-gray-200 flex-shrink-0">
+                <img src={IMAGES.hero} alt="Product Thumb" className="w-full h-full object-cover" />
+            </div>
+            <div className="flex flex-col">
+                <span className="text-xs font-medium text-secondary">AuraTide™</span>
+                <span className="text-lg font-black text-primary">$39.95</span>
+            </div>
         </div>
+
+        {/* CTA */}
+        <button 
+            onClick={onCtaClick}
+            className="flex-1 bg-primary text-white font-bold text-sm py-3 rounded-full shadow-lg active:scale-95 transition-transform"
+        >
+            ADD TO CART
+        </button>
       </div>
     </div>
   );

@@ -1,8 +1,10 @@
 import React from 'react';
 import AnnouncementBar from './components/AnnouncementBar';
 import Header from './components/Header';
-import Hero from './components/Hero'; // Now behaves as Product Display
-import Identity from './components/Identity'; // Now behaves as Story
+import Hero from './components/Hero';
+import Marquee from './components/Marquee'; // New
+import ViralFeed from './components/ViralFeed'; // Reused as UGC
+import Identity from './components/Identity';
 import FAQ from './components/FAQ';
 import Reviews from './components/Reviews';
 import StickyFooter from './components/StickyFooter';
@@ -23,6 +25,8 @@ const App: React.FC = () => {
       
       <main>
         <Hero onCtaClick={scrollToProduct} />
+        <Marquee />
+        <ViralFeed />
         <Identity />
         <Reviews />
         <FAQ />
