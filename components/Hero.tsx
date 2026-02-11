@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Star, Truck, ShieldCheck, ChevronRight, Check } from 'lucide-react';
-import { IMAGES } from '../constants';
+import { PDP_GALLERY } from '../constants';
 
 interface HeroProps {
   onCtaClick: () => void;
@@ -9,12 +9,8 @@ interface HeroProps {
 const Hero: React.FC<HeroProps> = ({ onCtaClick }) => {
   const [activeImage, setActiveImage] = useState(0);
   
-  const gallery = [
-    IMAGES.zeroRisk, // Knolling shot looks most like "Product"
-    IMAGES.offer,    // Living room
-    IMAGES.features, // 3 lamps
-    IMAGES.quality   // Texture
-  ];
+  // Use the ordered gallery from constants
+  const gallery = PDP_GALLERY;
 
   return (
     <section id="product" className="pt-8 pb-16 md:py-16 bg-white">

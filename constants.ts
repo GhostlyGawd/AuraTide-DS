@@ -2,14 +2,24 @@
 // Other images remain as local fallbacks or placeholders.
 
 export const IMAGES = {
-  hero: "https://cdn.discordapp.com/attachments/1058040741747769427/1471024699738820713/IMG_0241.jpg?ex=698d6e02&is=698c1c82&hm=7d614829bce1cc3b81c8cb8b16a9c5edbcfd355d6dd11794c7ade17799725059&", // Dark Bedroom
-  dreamState: "https://cdn.discordapp.com/attachments/1058040741747769427/1471024926226911398/IMG_0240.jpg?ex=698d6e38&is=698c1cb8&hm=73dfc15dc008c79001df9fb5161e8137bee0bf5ec73a8716184373eb8f5d1011&", // Bathroom/Spa
-  aesthetic: "image3.jpg",  // Gaming Setup/Purple
-  quality: "image4.jpg",    // Macro Crystal Texture
-  features: "https://cdn.discordapp.com/attachments/1058040741747769427/1471024865447252113/IMG_0244.jpg?ex=698d6e2a&is=698c1caa&hm=c6d0e272548d4f15b2cda1c89af3d8189c6e8736459200820c6f65b6e940a803&", // 3-Lamp Split
-  offer: "https://cdn.discordapp.com/attachments/1058040741747769427/1471026020638523433/IMG_0245.jpg?ex=698d6f3d&is=698c1dbd&hm=c4c1e8b98c3cb468c3c6296730f9d12b5523d94524c97a61db5b7fda3b8cb1b9&", // Living Room/Two Lamps
-  zeroRisk: "https://cdn.discordapp.com/attachments/1058040741747769427/1471026145486176276/IMG_0246.jpg?ex=698d6f5b&is=698c1ddb&hm=7f01c5f3876d78c4b15b33342a3f48094d4dab3176f47ecb5b3cdc4fa04fb9ee&", // The Box/Knolling Shot
+  hero: "https://cdn.discordapp.com/attachments/1058040741747769427/1471024699738820713/IMG_0241.jpg?ex=698e16c2&is=698cc542&hm=ba3a0efc4a133326bec439561792d576c78461cd41a3ce029020902e2e5c5f76&", // Dark Bedroom (Image 1)
+  dreamState: "https://cdn.discordapp.com/attachments/1058040741747769427/1471024926226911398/IMG_0240.jpg?ex=698e16f8&is=698cc578&hm=60279e03039d74046fc189ea47441cf4968906a948874179f17b3dc651311433&", // Bathroom/Spa (Image 2)
+  aesthetic: "https://cdn.discordapp.com/attachments/1058040741747769427/1471216964117729341/unnamed_3.jpg?ex=698e2112&is=698ccf92&hm=20fdae2485c361a1ab2be09d2c961a20829fec63d8e8c0c8ff9bc001d7248523&",  // Image 3
+  quality: "https://cdn.discordapp.com/attachments/1058040741747769427/1471216963815473296/unnamed_4.jpg?ex=698e2112&is=698ccf92&hm=1255e6e79ba16612c63c39ddf878ad858152d7c4c3560ac52552f1be87af6664&",    // Image 4
+  features: "https://cdn.discordapp.com/attachments/1058040741747769427/1471024865447252113/IMG_0244.jpg?ex=698e16ea&is=698cc56a&hm=acce1fcad98d0e5b57e4a5175428ad3c353d29007bbbfd2c44693fe6cf3fff4a&", // 3-Lamp Split (Image 5)
+  offer: "https://cdn.discordapp.com/attachments/1058040741747769427/1471026020638523433/IMG_0245.jpg?ex=698e17fd&is=698cc67d&hm=ce7767644a8c3c891b5d8e3cb5d08b9ccd58a860f8558e00e52faef8166af02d&", // Living Room/Two Lamps (Image 6)
+  zeroRisk: "https://cdn.discordapp.com/attachments/1058040741747769427/1471026145486176276/IMG_0246.jpg?ex=698e181b&is=698cc69b&hm=32d35cde0194bfaa0b79ba7160232b23e937d53bb65648bf2c1f1dfe63eb460e&", // The Box/Knolling Shot (Image 7)
 };
+
+export const PDP_GALLERY = [
+  IMAGES.hero,
+  IMAGES.dreamState,
+  IMAGES.aesthetic,
+  IMAGES.quality,
+  IMAGES.features,
+  IMAGES.offer,
+  IMAGES.zeroRisk
+];
 
 export const COLORS = {
   bg: "#0a0f1d",
